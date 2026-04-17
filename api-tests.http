@@ -1,0 +1,49 @@
+### Variables
+@base = http://localhost:8080
+@auth = Basic bW9oYW1tZWQ6MTIzNA==
+# base64 of "mohammed:1234"
+
+### Create a Task
+POST {{base}}/tasks
+Authorization: {{auth}}
+Content-Type: application/json
+
+{
+  "title": "Build login page",
+  "description": "Create the React login component",
+  "status": "TODO"
+}
+
+### Get All Tasks
+GET {{base}}/tasks
+Authorization: {{auth}}
+
+### Update Task (replace 1 with actual id)
+PUT {{base}}/tasks/1
+Authorization: {{auth}}
+Content-Type: application/json
+
+{
+  "title": "Build login page",
+  "description": "Create the React login component",
+  "status": "IN_PROGRESS"
+}
+
+### Log Time for a Task
+POST {{base}}/time-logs
+Authorization: {{auth}}
+Content-Type: application/json
+
+{
+  "taskId": 1,
+  "hours": 2.5,
+  "date": "2026-04-17"
+}
+
+### Get Time Logs for a Task
+GET {{base}}/time-logs?taskId=1
+Authorization: {{auth}}
+
+### Get All Time Logs
+GET {{base}}/time-logs
+Authorization: {{auth}}
