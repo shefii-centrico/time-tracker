@@ -1,6 +1,10 @@
 package com.mohammed.timetracker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "tasks")
@@ -10,9 +14,18 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Title is required")
     private String title;
+
     private String description;
-    private String status;
+
+    @NotNull(message = "Status is required")
+    @Enumerated(EnumType.STRING)
+    private TaskStatus status;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TimeLog> timeLogs;
 
     public Task() {}
 
@@ -25,6 +38,6 @@ public class Task {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public TaskStatus getStatus() { return status; }
+    public void setStatus(TaskStatus status) { this.status = status; }
 }

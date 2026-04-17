@@ -23,11 +23,8 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
             )
-            // Allow H2 console to render in iframe
-            .headers(headers -> headers.frameOptions(frame -> frame.disable()))
             .httpBasic(withDefaults());
 
         return http.build();

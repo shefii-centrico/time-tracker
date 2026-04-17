@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TimeLogRepository extends JpaRepository<TimeLog, Long> {
-    List<TimeLog> findByTaskId(Long taskId);
+    List<TimeLog> findByTask_Id(Long taskId);
 }

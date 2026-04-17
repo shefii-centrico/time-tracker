@@ -4,7 +4,7 @@ import com.mohammed.timetracker.model.Task;
 import com.mohammed.timetracker.service.TaskService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,7 +19,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+    public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
         return ResponseEntity.ok(taskService.createTask(task));
     }
 
@@ -29,7 +29,13 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
+    public ResponseEntity<Task> updateTask(@PathVariable Long id, @Valid @RequestBody Task task) {
         return ResponseEntity.ok(taskService.updateTask(id, task));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+        taskService.deleteTask(id);
+        return ResponseEntity.noContent().build();
     }
 }
