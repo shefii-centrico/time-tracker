@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS announcements (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    message TEXT,
+    type VARCHAR(20) DEFAULT 'INFO',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    created_by BIGINT,
+    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+);

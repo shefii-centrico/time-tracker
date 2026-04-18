@@ -17,6 +17,10 @@ public class TimeLog {
     @JoinColumn(name = "task_id", nullable = false)
     private Task task;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @NotNull(message = "Hours is required")
     @Positive(message = "Hours must be greater than 0")
     private Double hours;
@@ -32,9 +36,13 @@ public class TimeLog {
     public Task getTask() { return task; }
     public void setTask(Task task) { this.task = task; }
 
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+
     public Double getHours() { return hours; }
     public void setHours(Double hours) { this.hours = hours; }
 
     public LocalDate getDate() { return date; }
     public void setDate(LocalDate date) { this.date = date; }
 }
+

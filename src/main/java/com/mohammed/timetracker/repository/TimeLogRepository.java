@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface TimeLogRepository extends JpaRepository<TimeLog, Long> {
     List<TimeLog> findByTask_Id(Long taskId);
+    List<TimeLog> findByUser_Username(String username);
 }
