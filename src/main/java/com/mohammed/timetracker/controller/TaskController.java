@@ -28,28 +28,28 @@ public class TaskController {
 
     // TEAM_LEAD and ADMIN can fetch the employees list for the assign dropdown
     @GetMapping("/assignable-users")
-    @PreAuthorize("hasRole('TEAM_LEAD') or hasRole('ADMIN') or hasRole('PROJECT_MANAGER')")
+    @PreAuthorize("hasRole('TEAM_LEAD') or hasRole('ADMIN')"
     public ResponseEntity<List<User>> getAssignableUsers() {
         return ResponseEntity.ok(userService.getEmployees());
     }
 
-    // TL, Admin, PM can create tasks
+    // TL and Admin can create tasks
     @PostMapping
-    @PreAuthorize("hasRole('TEAM_LEAD') or hasRole('ADMIN') or hasRole('PROJECT_MANAGER')")
+    @PreAuthorize("hasRole('TEAM_LEAD') or hasRole('ADMIN')"
     public ResponseEntity<Task> createTask(@Valid @RequestBody Task task, Authentication auth) {
         return ResponseEntity.ok(taskService.createTask(task, auth.getName()));
     }
 
-    // TL, Admin, PM see all tasks
+    // TL and Admin see all tasks
     @GetMapping
-    @PreAuthorize("hasRole('TEAM_LEAD') or hasRole('ADMIN') or hasRole('PROJECT_MANAGER')")
+    @PreAuthorize("hasRole('TEAM_LEAD') or hasRole('ADMIN')"
     public ResponseEntity<List<Task>> getAllTasks() {
         return ResponseEntity.ok(taskService.getAllTasks());
     }
 
     // Get single task by ID
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('TEAM_LEAD') or hasRole('ADMIN') or hasRole('PROJECT_MANAGER')")
+    @PreAuthorize("hasRole('TEAM_LEAD') or hasRole('ADMIN')"
     public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
         return ResponseEntity.ok(taskService.getTaskById(id));
     }
@@ -61,9 +61,9 @@ public class TaskController {
         return ResponseEntity.ok(taskService.getMyTasks(auth.getName()));
     }
 
-    // TL, Admin, PM can edit tasks
+    // TL and Admin can edit tasks
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('TEAM_LEAD') or hasRole('ADMIN') or hasRole('PROJECT_MANAGER')")
+    @PreAuthorize("hasRole('TEAM_LEAD') or hasRole('ADMIN')"
     public ResponseEntity<Task> updateTask(@PathVariable Long id, @Valid @RequestBody Task task) {
         return ResponseEntity.ok(taskService.updateTask(id, task));
     }

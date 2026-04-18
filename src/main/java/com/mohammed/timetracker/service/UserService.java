@@ -37,6 +37,11 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found: " + username));
+    }
+
     public List<User> getEmployees() {
         return userRepository.findAll().stream()
                 .filter(u -> u.getRole() == Role.EMPLOYEE)

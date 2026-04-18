@@ -33,7 +33,7 @@ public class AnnouncementController {
 
     // Only ADMIN and TEAM_LEAD can post announcements
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN') or hasRole('TEAM_LEAD') or hasRole('PROJECT_MANAGER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('TEAM_LEAD')")
     public ResponseEntity<Announcement> create(@RequestBody Announcement announcement,
                                                Authentication auth) {
         User poster = userRepository.findByUsername(auth.getName())

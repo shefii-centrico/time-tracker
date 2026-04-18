@@ -9,6 +9,7 @@ import com.mohammed.timetracker.repository.TimeLogRepository;
 import com.mohammed.timetracker.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -44,11 +45,16 @@ public class TimeLogService {
         return timeLogRepository.save(timeLog);
     }
 
-    public List<TimeLog> getByTaskId(Long taskId) {
-        if (taskId != null) {
-            return timeLogRepository.findByTask_Id(taskId);
-        }
-        return timeLogRepository.findAll();
+    public List<TimeLog> getFiltered(Long taskId, Long userId, LocalDate startDate, LocalDate endDate) {
+        return timeLogRepository.findFiltered(taskId, userId, startDate, endDate);
+    }
+
+    public TimeLog updateTimeLog(Long id, Double hours, LocalDate date) {
+        TimeLog log = timeLogRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("TimeLog not found with id: " + id));
+        log.setHours(hours);
+        log.setDate(date);
+        return timeLogRepository.save(log);
     }
 
     public List<TimeLog> getMyTimeLogs(String username) {
